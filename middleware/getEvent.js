@@ -2,7 +2,7 @@
 const SingleEvent = require('../models/event.model');
 
 async function getEvent(req, res, next) {
-  let event: [];
+  let event;
 
   try {
     event = await SingleEvent.findById(req.params.id);

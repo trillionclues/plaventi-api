@@ -1,6 +1,6 @@
-import express from 'express';
-const getEvent = require('../middleware/getEvent');
+const express = require('express');
 const router = express.Router();
+const getEvent = require('../middleware/getEvent');
 
 const Event = require('../models/event.model');
 
@@ -37,10 +37,10 @@ router.get('/:id', getEvent, (req, res) => {
 // UPDATE EVENT BY ID
 router.patch('/:id', getEvent, async (req, res) => {
   if (req.body.title != null) {
-    res.event.title = res.event.title;
+    res.event.title = req.body.title;
   }
   if (req.body.description != null) {
-    res.event.description = res.event.description;
+    res.event.description = req.body.description;
   }
   try {
     const updateEvent = await res.event.save();
@@ -53,7 +53,7 @@ router.patch('/:id', getEvent, async (req, res) => {
 // DELETE EVENT BY ID
 router.delete('/:id', getEvent, async (req, res) => {
   try {
-    await res.event.remove();
+    await res.event.deleteOne();
     res.json({ message: 'event deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
